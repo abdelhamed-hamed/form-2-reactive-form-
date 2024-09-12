@@ -1,0 +1,49 @@
+<div class="warning my-1">
+  <!-- error -->
+  <p
+    class="m-0 text-danger"
+    *ngIf="
+      myForm.controls[errorName].hasError('required') &&
+      myForm.controls[errorName].touched
+    "
+  >
+    {{ "* this field is required" | titlecase }}
+  </p>
+  <!-- Pattern Error -->
+  <p
+    class="m-0 text-danger"
+    *ngIf="
+      errorName != 'password' && myForm.controls[errorName].hasError('pattern')
+    "
+  >
+    {{ "* incorrect " + errorName | titlecase }}
+  </p>
+
+  <!-- Password Pattern Error -->
+  <p
+    class="m-0 text-danger"
+    style="font-size: 13px"
+    *ngIf="
+      errorName == 'password' &&
+      myForm.controls[errorName].hasError('pattern') &&
+      !myForm.controls[errorName].hasError('maxlength')
+    "
+  >
+    {{
+      "* password should have upper and lower case and special chars and more than 8 cahrs"
+        | titlecase
+    }}
+  </p>
+  <!-- isnot Match -->
+  <p
+    class="m-0 text-danger"
+    style="font-size: 13px"
+    *ngIf="
+      errorName == 'confirmPassword' &&
+      myForm.controls['password'].errors == null &&
+      myForm.controls[errorName].value != myForm.controls['password'].value
+    "
+  >
+    {{ "* confirm password isnot match" | titlecase }}
+  </p>
+</div>
